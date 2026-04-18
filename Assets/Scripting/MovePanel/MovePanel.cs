@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovePanel : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MovePanel : MonoBehaviour
     private string MoveSelected = "";
     private bool IsPsychicSelected = false;
 
+    public UnityEvent <string> OnButtonSelected;
 
     private void OnEnable()
     {
@@ -28,13 +30,19 @@ public class MovePanel : MonoBehaviour
         if (MoveSelected == move)
         {
             MoveSelected = "";
-            return;
+            //return;
         }
-        MoveSelected = move;
+        else
+        {
+            MoveSelected = move;
+        }
+        
+        OnButtonSelected?.Invoke(move);
     }
     public void SelectPsychic()
     {
         IsPsychicSelected = (IsPsychicSelected) ? false : true;
+        Debug.Log("In selectpsychic: " + IsPsychicSelected);
     }
 
     public void EndTurn()
