@@ -477,7 +477,7 @@ MonoBehaviour:
   ButtonName: 
   Selected: {r: 1, g: 0.98039216, b: 0, a: 1}
   NotSelected: {r: 0, g: 0.023529412, b: 1, a: 1}
-  PsychicBarNumber: 0
+  PsychicBarNumber: 1
   Consumed: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
 --- !u!1 &196097938
 GameObject:
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   ButtonName: 
   Selected: {r: 1, g: 0.98039216, b: 0, a: 1}
   NotSelected: {r: 0, g: 0.023529412, b: 1, a: 1}
-  PsychicBarNumber: 0
+  PsychicBarNumber: 2
   Consumed: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
 --- !u!1 &443353785
 GameObject:
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   ButtonName: 
   Selected: {r: 1, g: 0.97981787, b: 0, a: 1}
   NotSelected: {r: 0, g: 0.02745098, b: 1, a: 1}
-  PsychicBarNumber: 0
+  PsychicBarNumber: 3
   Consumed: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &832575517
 GameObject:
