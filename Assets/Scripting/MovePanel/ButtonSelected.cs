@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class ButtonSelected : MonoBehaviour
 {
-    private Image SelectionIndicator;
+    protected Image SelectionIndicator;
     private bool HasImage = false;
     [SerializeField] private string ButtonName;
-    [SerializeField] private Color Selected;
-    [SerializeField] private Color NotSelected;
+    [SerializeField] protected Color Selected;
+    [SerializeField] protected Color NotSelected;
     private bool IsSelected = false;
 
     private void Awake()

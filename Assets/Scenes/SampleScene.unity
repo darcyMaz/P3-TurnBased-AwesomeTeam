@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 169260609}
   - component: {fileID: 169260611}
   - component: {fileID: 169260610}
+  - component: {fileID: 169260612}
   m_Layer: 5
   m_Name: Bar 1
   m_TagString: Untagged
@@ -461,6 +462,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169260608}
   m_CullTransparentMesh: 1
+--- !u!114 &169260612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169260608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d2bc597c2ec29479988b031cd84558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PsychicBar
+  ButtonName: 
+  Selected: {r: 1, g: 0.98039216, b: 0, a: 1}
+  NotSelected: {r: 0, g: 0.023529412, b: 1, a: 1}
+  PsychicBarNumber: 0
+  Consumed: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
 --- !u!1 &196097938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1083,7 @@ GameObject:
   - component: {fileID: 424519102}
   - component: {fileID: 424519104}
   - component: {fileID: 424519103}
+  - component: {fileID: 424519105}
   m_Layer: 5
   m_Name: Bar 2
   m_TagString: Untagged
@@ -1129,6 +1148,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424519101}
   m_CullTransparentMesh: 1
+--- !u!114 &424519105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424519101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d2bc597c2ec29479988b031cd84558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PsychicBar
+  ButtonName: 
+  Selected: {r: 1, g: 0.98039216, b: 0, a: 1}
+  NotSelected: {r: 0, g: 0.023529412, b: 1, a: 1}
+  PsychicBarNumber: 0
+  Consumed: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
 --- !u!1 &443353785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,6 +1289,21 @@ MonoBehaviour:
       - m_Target: {fileID: 857627669}
         m_TargetAssemblyTypeName: ButtonSelected, Assembly-CSharp
         m_MethodName: FlipSelection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnTurnEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1208103123}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: Attack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1410,6 +1461,7 @@ GameObject:
   - component: {fileID: 570666986}
   - component: {fileID: 570666988}
   - component: {fileID: 570666987}
+  - component: {fileID: 570666989}
   m_Layer: 5
   m_Name: Bar 3
   m_TagString: Untagged
@@ -1474,6 +1526,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570666985}
   m_CullTransparentMesh: 1
+--- !u!114 &570666989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570666985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d2bc597c2ec29479988b031cd84558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PsychicBar
+  ButtonName: 
+  Selected: {r: 1, g: 0.97981787, b: 0, a: 1}
+  NotSelected: {r: 0, g: 0.02745098, b: 1, a: 1}
+  PsychicBarNumber: 0
+  Consumed: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1923,7 @@ GameObject:
   - component: {fileID: 1208103121}
   - component: {fileID: 1208103120}
   - component: {fileID: 1208103119}
+  - component: {fileID: 1208103123}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1956,6 +2026,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1208103123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208103118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b96a2dabf9f6f4fbd96e9fc7a3c3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  TotalPsychicAttacks: 3
+  OnPsychicAttackUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 169260612}
+        m_TargetAssemblyTypeName: PsychicBar, Assembly-CSharp
+        m_MethodName: CheckIfConsumed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 424519105}
+        m_TargetAssemblyTypeName: PsychicBar, Assembly-CSharp
+        m_MethodName: CheckIfConsumed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 570666989}
+        m_TargetAssemblyTypeName: PsychicBar, Assembly-CSharp
+        m_MethodName: CheckIfConsumed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1239390888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,7 +2090,7 @@ GameObject:
   - component: {fileID: 1239390891}
   - component: {fileID: 1239390890}
   m_Layer: 5
-  m_Name: Psychich Bars
+  m_Name: Psychic Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2394,6 +2516,42 @@ MonoBehaviour:
       - m_Target: {fileID: 443353789}
         m_TargetAssemblyTypeName: MovePanel, Assembly-CSharp
         m_MethodName: EndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 964434990}
+        m_TargetAssemblyTypeName: ButtonSelected, Assembly-CSharp
+        m_MethodName: Deselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 196097939}
+        m_TargetAssemblyTypeName: ButtonSelected, Assembly-CSharp
+        m_MethodName: Deselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 857627669}
+        m_TargetAssemblyTypeName: ButtonSelected, Assembly-CSharp
+        m_MethodName: Deselect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

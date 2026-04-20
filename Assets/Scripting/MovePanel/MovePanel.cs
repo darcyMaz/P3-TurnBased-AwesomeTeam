@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,7 +17,11 @@ public class MovePanel : MonoBehaviour
     private string MoveSelected = "";
     private bool IsPsychicSelected = false;
 
-    public UnityEvent <string> OnButtonSelected;
+    [SerializeField] private UnityEvent <string> OnButtonSelected;
+    [SerializeField] private UnityEvent <string, bool> OnTurnEnd;
+
+
+    private int PsychicAttacksRemaining = 3;
 
     private void OnEnable()
     {
@@ -30,7 +35,6 @@ public class MovePanel : MonoBehaviour
         if (MoveSelected == move)
         {
             MoveSelected = "";
-            //return;
         }
         else
         {
@@ -42,7 +46,6 @@ public class MovePanel : MonoBehaviour
     public void SelectPsychic()
     {
         IsPsychicSelected = (IsPsychicSelected) ? false : true;
-        Debug.Log("In selectpsychic: " + IsPsychicSelected);
     }
 
     public void EndTurn()
@@ -52,9 +55,19 @@ public class MovePanel : MonoBehaviour
             Debug.Log("No move selected.");
             return;
         }
-        Debug.Log("Move: " + MoveSelected + " Psychic?: " + IsPsychicSelected);
+        // Debug.Log("Move: " + MoveSelected + " Psychic?: " + IsPsychicSelected);
+
+        OnTurnEnd?.Invoke(MoveSelected, IsPsychicSelected);
 
         MoveSelected = "";
         IsPsychicSelected = false;
+
+        // So I want to hold the psychic attack info into playermanager i think
+        // No, we'll make an event here called OnTurnEnd which the player manager listens to and gets info on psy attack and normal attack booom.
+    }
+
+    public int GetRemainingPsychicAttacks()
+    {
+        return PsychicAttacksRemaining;
     }
 }
