@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlideFast
+  m_Name: AC_SlideFast
   serializedVersion: 6
   m_AnimatorParameters:
   - m_Name: isSliding
