@@ -7,7 +7,7 @@ public class PsychicBar : ButtonSelected
 
     public void CheckIfConsumed(int TotalPsyAttacksLeft)
     {
-        Debug.Log(TotalPsyAttacksLeft + " " + name);
+        // Debug.Log(TotalPsyAttacksLeft + " " + name);
 
         // This means that we've consumed this psy attack and need to grey out the image.
         if (TotalPsyAttacksLeft < PsychicBarNumber)

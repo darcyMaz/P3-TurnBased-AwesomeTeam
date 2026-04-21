@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private TurnState turnState;
+
+    public void EndPlayerTurn(string MoveType, bool IsPsyAttackUsed)
     {
-        
+        Debug.Log("player's turn is over.");
+        turnState = TurnState.EnemyTurn;
+
+    }
+    public void EndEnemyTurn()
+    {
+        Debug.Log("enemy turn is over");
+        turnState = TurnState.PlayerTurn;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

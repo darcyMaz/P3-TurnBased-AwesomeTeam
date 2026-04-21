@@ -18,7 +18,9 @@ public class MovePanel : MonoBehaviour
     private bool IsPsychicSelected = false;
 
     [SerializeField] private UnityEvent <string> OnButtonSelected;
+    [SerializeField] private UnityEvent OnPsychicSelected;
     [SerializeField] private UnityEvent <string, bool> OnTurnEnd;
+    [SerializeField] private UnityEvent OnFailedToMove;
 
 
     private int PsychicAttacksRemaining = 3;
@@ -46,12 +48,14 @@ public class MovePanel : MonoBehaviour
     public void SelectPsychic()
     {
         IsPsychicSelected = (IsPsychicSelected) ? false : true;
+        OnPsychicSelected?.Invoke();
     }
 
     public void EndTurn()
     {
         if (MoveSelected == "")
         {
+            OnFailedToMove?.Invoke();
             Debug.Log("No move selected.");
             return;
         }

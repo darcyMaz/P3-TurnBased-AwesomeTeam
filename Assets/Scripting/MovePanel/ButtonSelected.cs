@@ -14,6 +14,8 @@ public class ButtonSelected : MonoBehaviour
     {
         if (!TryGetComponent(out SelectionIndicator)) Debug.Log("A ButtonSelected component cannot find the image associated to it.");
         else HasImage = true;
+
+        // Debug.Log(HasImage);
     }
 
     public void Deselect()
@@ -28,6 +30,8 @@ public class ButtonSelected : MonoBehaviour
     {
         if (HasImage)
         {
+            // Debug.Log(move + " here is the problem, it sends in empty or a move it can't have. So i need to have a diff func in movepanel called psychic pressed don't i have that?");
+
             if (move == ButtonName)
             {
                 IsSelected = (IsSelected) ? false : true;
