@@ -11,14 +11,15 @@ public class PlayerManager : MonoBehaviour
     private bool HasAnim = false;
 
     [SerializeField] private UnityEvent<int> OnPsychicAttackUse;
-    [SerializeField] private UnityEvent<int> OnAttack;
-    [SerializeField] private UnityEvent<int> OnShield;
-    [SerializeField] private UnityEvent<int> OnHeal;
+    [SerializeField] private UnityEvent<int, int, int, bool> OnMove;
 
+    // Represents the range of move effect as whole number percentages.
     [SerializeField] private Vector2 AttackRange;
     [SerializeField] private Vector2 ShieldRange;
     [SerializeField] private Vector2 HealRange;
 
+    // Returns changed health to listeners.
+    [SerializeField] private UnityEvent <int> OnHealthChange;
     [SerializeField] private int MaxHealth;
     private int Health;
 
@@ -40,39 +41,57 @@ public class PlayerManager : MonoBehaviour
         else HasAnim = true;
     }
 
+    
+
     public void Move(string MoveName, bool IsPsyAttacking)
     {
         if (IsPsyAttacking) UsePsyAttack();
 
-        if (MoveName == "Attack") Attack();
-        else if (MoveName == "Shield") Shield();
-        else if (MoveName == "Heal") Heal();
+        if (MoveName == "Attack") Attack(IsPsyAttacking);
+        else if (MoveName == "Shield") Shield(IsPsyAttacking);
+        else if (MoveName == "Heal") Heal(IsPsyAttacking);
         else
         {
             Debug.Log("PlayerManager.Move(Movename, IsPsyAttacking) does not have a valid MoveName string.");
         }
     }
 
-    private void Attack()
+    private void Attack(bool IsPsy)
     {
-        OnAttack?.Invoke( GetRange(AttackRange.x, AttackRange.y) );
+        OnMove?.Invoke( GetRange(AttackRange.x, AttackRange.y), 0, 0, IsPsy );
 
         if (HasAnim) animator.SetTrigger("IsAttacking");
         else EndPlayerTurn();
     }
-    private void Shield()
+    private void Shield(bool IsPsy)
     {
-        OnShield?.Invoke( GetRange(ShieldRange.x, ShieldRange.y) );
+        OnMove?.Invoke( 0, GetRange(ShieldRange.x, ShieldRange.y), 0, IsPsy );
 
         if (HasAnim) animator.SetTrigger("IsShielding");
         else EndPlayerTurn();
     }
-    private void Heal()
+    private void Heal(bool IsPsy)
     {
-        OnHeal?.Invoke( GetRange(HealRange.x, HealRange.y) );
+        OnMove?.Invoke( 0, 0, GetRange(HealRange.x, HealRange.y), IsPsy );
 
+        // Idea here is to have an event in the animations that Ends the turn
         if (HasAnim) animator.SetTrigger("IsHealing");
         else EndPlayerTurn();
+    }
+
+    public void ChangeHealth(int WholeNumberAsPercent)
+    {
+        int DeltaHealth = (int) GetAsPercentage(WholeNumberAsPercent);
+
+        Health = (Health + DeltaHealth > MaxHealth) ? MaxHealth: (Health + DeltaHealth < 0) ? 0: Health + DeltaHealth;
+
+        if (Health <= 0)
+        {
+            // player dies
+            Death();
+        }
+
+        OnHealthChange?.Invoke(Health);
     }
 
     private void EndPlayerTurn()
@@ -89,6 +108,7 @@ public class PlayerManager : MonoBehaviour
         OnPsychicAttackUse?.Invoke(--CurrentPsychicAttacks);
     }
 
+
     private void Death()
     {
         OnDeath?.Invoke();
@@ -100,5 +120,12 @@ public class PlayerManager : MonoBehaviour
 
         System.Random rand = new System.Random();
         return rand.Next((int) x, (int) y);
+    }
+
+    private float GetAsPercentage(int wholeNum)
+    {
+        // System.Random rand = new System.Random();
+        // float wholeNum = (float)rand.Next((int)x, (int)y);
+        return (wholeNum / 100f) * MaxHealth;
     }
 }
