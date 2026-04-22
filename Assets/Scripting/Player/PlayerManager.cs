@@ -117,15 +117,12 @@ public class PlayerManager : MonoBehaviour
     private int GetRange(float x, float y)
     {
         // I wonder if every game will have the same rand seed
-
         System.Random rand = new System.Random();
         return rand.Next((int) x, (int) y);
     }
 
     private float GetAsPercentage(int wholeNum)
     {
-        // System.Random rand = new System.Random();
-        // float wholeNum = (float)rand.Next((int)x, (int)y);
         return (wholeNum / 100f) * MaxHealth;
     }
 }

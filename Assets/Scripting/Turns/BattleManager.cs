@@ -18,6 +18,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private UnityEvent <int> OnHealEnemy;
     [SerializeField] private UnityEvent <int> OnHealPlayer;
 
+    // 
+    [SerializeField] private UnityEvent OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent OnEnemyTurnEnd;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,6 +44,8 @@ public class BattleManager : MonoBehaviour
         if (health > 0) OnHealPlayer?.Invoke(health);
 
         EnemyDefenseToApply = 0;
+
+        OnPlayerTurnEnd?.Invoke();
     }
 
 
@@ -54,6 +60,8 @@ public class BattleManager : MonoBehaviour
         if (health > 0) OnHealEnemy?.Invoke(health);
 
         PlayerDefenseToApply = 0;
+
+        OnEnemyTurnEnd?.Invoke();
     }
 
 }
