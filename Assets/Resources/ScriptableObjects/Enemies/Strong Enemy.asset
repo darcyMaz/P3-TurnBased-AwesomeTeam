@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Strong Enemy
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   EnemyName: Strong Enemy
-  EnemyModel: {fileID: 0}
   HealRange: {x: 1, y: 4}
   AttackRange: {x: 11, y: 14}
   DefenseRange: {x: 7, y: 12}
+  PsychicEffectRange: {x: 0.06, y: 0.4}
+  MaxHealth: 10

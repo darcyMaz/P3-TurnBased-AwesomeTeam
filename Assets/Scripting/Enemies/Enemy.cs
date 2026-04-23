@@ -7,13 +7,14 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private bool HasAnim = false;
 
-    private EnemySO data;
+    [SerializeField] private EnemySO data;
     private bool HasData = false;
 
     private int MaxHealth;
     private int Health;
 
     [SerializeField] private Vector3 DebugStartPos;
+    
 
     // These are C# classes because Enemy is created at runtime, and cannot be assigned in the inspector.
     // UnityEvents can be assigned in this way I bet
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
         if (!TryGetComponent(out animator)) Debug.Log("An Enemy tried to get its animator but couldn't find it.");
         else HasAnim = true;
 
-        if (!TryGetComponent(out data)) Debug.Log("An Enemy tried to get its EnemySO component but could not find it.");
+        if (data == null) Debug.Log("An Enemy tried to get its EnemySO component but could not find it.");
         else HasData = true;
 
         if (HasData)
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour
     {
         if (HasAnim)
         {
-            animator.SetTrigger("Walk In");
+            animator.SetBool("isSliding", true);
         }
         else
         {

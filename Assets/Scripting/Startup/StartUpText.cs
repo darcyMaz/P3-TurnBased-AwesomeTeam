@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StartUpText : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class StartUpText : MonoBehaviour
 
     private TextMeshProUGUI startUpText;
     private bool HasText = false;
+
+    [SerializeField] private UnityEvent OnStartUpDone;
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class StartUpText : MonoBehaviour
 
         if (++DialogueIndex == DialogueLength)
         {
-            TurnManager.Instance.StartPlayerTurn();
+            OnStartUpDone?.Invoke();
             return;
         }
         startUpText.text = StartUpDialogue[DialogueIndex];

@@ -8,7 +8,7 @@ public class TurnManager : MonoBehaviour
     private TurnState turnState;
     [SerializeField] private UnityEvent OnStartUp;
     [SerializeField] private UnityEvent OnPlayerTurnStart;
-    [SerializeField] private UnityEvent <bool> OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent<bool> OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
     [SerializeField] private UnityEvent OnPlayerDeath;
     [SerializeField] private UnityEvent OnNextEnemy;
@@ -73,5 +73,8 @@ public class TurnManager : MonoBehaviour
         OnLevelComplete?.Invoke();
     }
 
-
+    public TurnState GetTurnState()
+    {
+        return turnState;
+    }
 }

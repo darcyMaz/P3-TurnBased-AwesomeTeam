@@ -5,7 +5,7 @@ using System;
 public class EnemySO : ScriptableObject
 {
     [SerializeField] private string EnemyName;
-    [SerializeField] private GameObject EnemyModel; // maybe not this? idk
+    //[SerializeField] private GameObject EnemyModel; // maybe not this? idk
 
     // Percent of health to heal.
     [SerializeField] private Vector2 HealRange;
@@ -17,13 +17,13 @@ public class EnemySO : ScriptableObject
     [SerializeField] private Vector2 DefenseRange;
 
     // A Psychic Attack can Double an Enemy's Move, Halve it, or do nothing,
-    // This range represents the odds of Doubling and Halving, whereas the difference between 1 and the sum of these two represents the do nothing chance.
+    // This range represents the odds of Doubling and Halving respectively, whereas the difference between 1 and the sum of these two represents the do nothing chance.
     [SerializeField] private Vector2 PsychicEffectRange;
 
     [SerializeField] private int MaxHealth;
 
     public string GetEnemyName() => EnemyName;
-    public GameObject GetSprite() => EnemyModel;
+    //public GameObject GetSprite() => EnemyModel;
     public int GetHealPercentage()
     {
         HealRange = CheckMinMax(HealRange);

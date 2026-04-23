@@ -18,9 +18,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private UnityEvent <int> OnHealEnemy;
     [SerializeField] private UnityEvent <int> OnHealPlayer;
 
-    // 
-    [SerializeField] private UnityEvent<bool> OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent <bool> OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
+
+    private bool DidEnemyDie = false;
 
     private void Awake()
     {
