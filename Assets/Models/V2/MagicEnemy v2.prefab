@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85b2d382bdc4fe44b77ec4de29e571f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  data: {fileID: 11400000, guid: 3343549e53e1f604f9ebe6aa72edd203, type: 2}
   DebugStartPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &7487470640300923782
 PrefabInstance:

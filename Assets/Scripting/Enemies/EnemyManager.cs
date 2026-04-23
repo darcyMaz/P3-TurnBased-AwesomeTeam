@@ -31,6 +31,11 @@ public class EnemyManager : MonoBehaviour
         OnEnemyMove?.Invoke(enemyMoveVals[0], enemyMoveVals[1], enemyMoveVals[2]);
     }
 
+    public void ChangeCurrentEnemyHealth(int WholeNumPercentage)
+    {
+        CurrentEnemyClone.ChangeHealth(WholeNumPercentage);
+    }
+
     // Call this when the previous enemy died also on start.
     public void TryQueueInEnemy()
     {

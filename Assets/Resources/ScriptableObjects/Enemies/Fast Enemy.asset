@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Fast Enemy
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   EnemyName: Fast Enemy
-  EnemyModel: {fileID: 0}
   HealRange: {x: 6, y: 10}
   AttackRange: {x: 9, y: 13}
   DefenseRange: {x: 2, y: 5}
+  PsychicEffectRange: {x: 0.08, y: 0.28}
+  MaxHealth: 10
