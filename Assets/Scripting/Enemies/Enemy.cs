@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
     // These are C# classes because Enemy is created at runtime, and cannot be assigned in the inspector.
     // UnityEvents can be assigned in this way I bet
     public event Action OnDeath;
-    public event Action <int> OnHealthChange; // returns new health
 
     private void Awake()
     {
@@ -50,29 +49,68 @@ public class Enemy : MonoBehaviour
 
     // All Enemys will have the same decision making, albeit with different values.
     // Psychic affect can double or halve whatever the enemy does. Probably halves it.
-    public void EnemyTurnDecision(bool IsPsychicAffected)
+    public int[] EnemyTurnDecision(bool IsPsychicAffected)
     {
         // if health 100% attack def
         // if health less than 50% then heal half the time, attack and shield split the other half
         // if health greater than 50% attack half the time, heal and shield split
 
+        int[] returnVals = new int[3];
+
         float percentage = (float) Health / MaxHealth;
+        float chance = UnityEngine.Random.Range(0, 1);
+
+        float PsychicMultiplier = (IsPsychicAffected) ? data.GetPsychicEffect() : 1;
 
         if (percentage == 1)
         {
-            // invoke attack
+            // If at full health, always attack.
+            returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
         }
         else if (percentage >= 0.5f)
         {
             // 50 chance of attack, 25 percent chance of defend, 25 percent chance of heal
+            
+            if (chance <= 0.5f)
+            {
+                // Attack
+                returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+            }
+            else if (chance > 0.5f && chance < 0.75f)
+            {
+                // shield
+                returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+            }
+            else
+            {
+                // heal
+                returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+            }
         }
         else if (percentage <= 0.5f)
         {
             // 50 percent chance of shield, 25 percent of attack, 25 percent of heal
+            if (chance <= 0.5f)
+            {
+                // Attack
+                returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+            }
+            else if (chance > 0.5f && chance < 0.75f)
+            {
+                // shield
+                returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+            }
+            else
+            {
+                // heal
+                returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+            }
         }
+
+        return returnVals;
     }
 
-    public void ChangeHealth(int WholeNumberAsPercent)
+    public int ChangeHealth(int WholeNumberAsPercent)
     {
         int DeltaHealth = (int) GetAsPercentage(WholeNumberAsPercent);
 
@@ -83,7 +121,7 @@ public class Enemy : MonoBehaviour
             Death();
         }
 
-        OnHealthChange?.Invoke(Health);
+        return Health;
     }
 
     private float GetAsPercentage(int wholeNum)
@@ -93,8 +131,6 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
-        OnDeath?.Invoke();
-
         if (HasAnim)
         {
             animator.SetBool("IsDying", true);
@@ -108,6 +144,6 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        OnDeath?.Invoke();
     }
 }

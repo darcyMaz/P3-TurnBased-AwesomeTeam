@@ -111,7 +111,21 @@ public class PlayerManager : MonoBehaviour
 
     private void Death()
     {
+        if (HasAnim)
+        {
+            // Animation will call DestroyPlayer()
+            animator.SetBool("IsDying", true);
+        }
+        else
+        {
+            DestroyPlayer();
+        }
+    }
+
+    public void DestroyPlayer()
+    {
         OnDeath?.Invoke();
+        Destroy(gameObject);
     }
 
     private int GetRange(float x, float y)

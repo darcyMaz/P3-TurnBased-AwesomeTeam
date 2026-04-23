@@ -17,21 +17,24 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> enemies;
     private int EnemyIndex = 0;
-    private GameObject CurrentEnemyClone;
+    private Enemy CurrentEnemyClone;
 
     [SerializeField] private UnityEvent OnEnemiesDefeated;
+    [SerializeField] private UnityEvent OnNextEnemy;
 
     [SerializeField] private UnityEvent <int, int, int> OnEnemyMove;
 
-    public void EnemyTurn()
+    public void EnemyTurn(bool IsPsychic)
     {
-        // CurrentEnemyClone.EnemyTurnDecision(bool isPsyActive)
+        int[] enemyMoveVals = CurrentEnemyClone.EnemyTurnDecision(IsPsychic);
+
+        OnEnemyMove?.Invoke(enemyMoveVals[0], enemyMoveVals[1], enemyMoveVals[2]);
     }
 
     // Call this when the previous enemy died also on start.
     public void TryQueueInEnemy()
     {
-        if (EnemyIndex == enemies.Count -1)
+        if (EnemyIndex == enemies.Count - 1)
         {
             // No more enemies
             OnEnemiesDefeated?.Invoke();
@@ -44,17 +47,31 @@ public class EnemyManager : MonoBehaviour
         else
         {
             // Next enemy please!
-            QueueInEnemy();
+            // QueueInEnemy();
+            OnNextEnemy?.Invoke();
         }
     }
 
-    private void QueueInEnemy()
+    public void QueueInEnemy()
     {
-        CurrentEnemyClone = Instantiate(enemies[EnemyIndex++]);
-        Enemy en;
+        GameObject CurrentEnemyCloneGO = Instantiate(enemies[EnemyIndex++]);
 
-        if (TryGetComponent(out en)) en.QueueIn();
-        else Debug.Log("An enemy prefab did not have its Enemy component. Failed to queue in.");
-    
+        if (!TryGetComponent(out CurrentEnemyClone)) Debug.Log("An enemy prefab did not have its Enemy component. Failed to queue in.");
+        else
+        {
+            CurrentEnemyClone.QueueIn();
+            CurrentEnemyClone.OnDeath += EnemyDeath;
+        }
+    }
+
+    private void EnemyDeath()
+    {
+        // Unsubscribe the Enemy from this function.
+        CurrentEnemyClone.OnDeath -= EnemyDeath;
+        // Now we can destroy it.
+        Destroy(CurrentEnemyClone.gameObject);
+
+        // Try to queue in the next enemy, turn manager will take the reigns from there.
+        TryQueueInEnemy();
     }
 }

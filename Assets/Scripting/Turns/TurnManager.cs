@@ -8,10 +8,9 @@ public class TurnManager : MonoBehaviour
     private TurnState turnState;
     [SerializeField] private UnityEvent OnStartUp;
     [SerializeField] private UnityEvent OnPlayerTurnStart;
-    [SerializeField] private UnityEvent OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent <bool> OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
     [SerializeField] private UnityEvent OnPlayerDeath;
-    [SerializeField] private UnityEvent OnEnemyDeath;
     [SerializeField] private UnityEvent OnNextEnemy;
     [SerializeField] private UnityEvent OnLevelComplete;
 
@@ -42,11 +41,11 @@ public class TurnManager : MonoBehaviour
         turnState = TurnState.PlayerTurn;
         OnPlayerTurnStart?.Invoke();
     }
-    public void EndPlayerTurn()
+    public void EndPlayerTurn(bool IsLastMovePsychic)
     {
         Debug.Log("player's turn is over.");
         turnState = TurnState.EnemyTurn;
-        OnPlayerTurnEnd?.Invoke();
+        OnPlayerTurnEnd?.Invoke(IsLastMovePsychic);
     }
     public void EndEnemyTurn()
     {
@@ -60,12 +59,6 @@ public class TurnManager : MonoBehaviour
         Debug.Log("In turn manager: player dead");
         turnState = TurnState.PlayerDeath;
         OnPlayerDeath?.Invoke();
-    }
-    public void EnemyDeath()
-    {
-        Debug.Log("In turn manager: enemy dead");
-        turnState = TurnState.EnemyDeath;
-        OnEnemyDeath?.Invoke();
     }
     public void NextEnemy()
     {

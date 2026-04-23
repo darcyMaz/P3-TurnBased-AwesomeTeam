@@ -19,7 +19,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private UnityEvent <int> OnHealPlayer;
 
     // 
-    [SerializeField] private UnityEvent OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent<bool> OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
 
     private void Awake()
@@ -38,14 +38,14 @@ public class BattleManager : MonoBehaviour
         PlayerDefenseToApply = defense;
 
         if (EnemyDefenseToApply > 0) Debug.Log("The Player's Attack was reduced by a previous Defense move by the Enemy.");
-        damage -= EnemyDefenseToApply;
+        damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - EnemyDefenseToApply;
 
         if (damage > 0) OnAttackEnemy?.Invoke(damage);
         if (health > 0) OnHealPlayer?.Invoke(health);
 
         EnemyDefenseToApply = 0;
 
-        OnPlayerTurnEnd?.Invoke();
+        OnPlayerTurnEnd?.Invoke(IsPsychic);
     }
 
 
@@ -53,8 +53,8 @@ public class BattleManager : MonoBehaviour
     {
         EnemyDefenseToApply = defense;
 
-        if (PlayerDefenseToApply > 0) Debug.Log("The Enemy's Attack was reduced by a previous Defense move by the Player.");
-        damage -= PlayerDefenseToApply;
+        if (PlayerDefenseToApply > 0) Debug.Log("The Enemy's Attack was reduced by a previous Defense move by the Player."); // debug statement
+        damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - PlayerDefenseToApply;
 
         if (damage > 0) OnAttackPlayer?.Invoke(damage);
         if (health > 0) OnHealEnemy?.Invoke(health);
