@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
 
-    private Animator animator;
+    private EnemyAnim animator;
     private bool HasAnim = false;
 
     [SerializeField] private EnemySO data;
@@ -44,11 +44,11 @@ public class Enemy : MonoBehaviour
     {
         if (HasAnim)
         {
-            animator.SetBool("isSliding", true);
+            animator.AnimateSlide();
         }
         else
         {
-            transform.position = DebugStartPos;
+            Debug.Log("The slide animation was not triggered because the Enemy did not have its EnemyAnim component.");
         }
     }
 
@@ -156,7 +156,7 @@ public class Enemy : MonoBehaviour
     {
         if (HasAnim)
         {
-            animator.SetBool("isDying", true);
+            animator.AnimateDeath();
             // This animation will have the destroy game object called in an event
         }
         else

@@ -17,6 +17,7 @@ public class EnemyAnim : MonoBehaviour
     private MoveAnim attackMA;
     private bool HasAttackMA = false;
 
+
     private void Awake()
     {
         if (!heal.TryGetComponent(out healMA)) Debug.Log("An EnemyAnim could not find its MoveAnim for the heal object.");
@@ -49,19 +50,14 @@ public class EnemyAnim : MonoBehaviour
     {
         if (HasAnim)
         {
-            animator.SetBool("isSliding", true);
+            animator.SetTrigger("SlideTrigger");
         }
     }
-    public void EndSlideAnim()
+    public void AnimateDeath()
     {
         if (HasAnim)
         {
-            animator.SetBool("isSliding", false);
+            animator.SetTrigger("DeathTrigger");
         }
-    }
-
-    private void Start()
-    {
-        //AnimateShield();
     }
 }
