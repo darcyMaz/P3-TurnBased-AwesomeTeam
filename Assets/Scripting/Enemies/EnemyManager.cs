@@ -27,11 +27,14 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private UnityEvent <string> OnNameChange;
     [SerializeField] private UnityEvent OnEnemySurvivedAttack;
 
+    [SerializeField] private UnityEvent<string> OnEnemyDecision;
+
     private bool IsNextMovePsychicEffected = false;
 
     public void EnemyTurn()
     {
         int[] enemyMoveVals = CurrentEnemyClone.EnemyTurnDecision(IsNextMovePsychicEffected);
+        OnEnemyDecision?.Invoke(CurrentEnemyClone.GetLastDecision());
 
         //Debug.Log("EnemyTurn! "+ enemyMoveVals[0] +" "+ enemyMoveVals[1] +" "+ enemyMoveVals[2] + " : EM.EnemyTurn()");
 

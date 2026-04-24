@@ -20,6 +20,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private UnityEvent OnDefend;
     [SerializeField] private UnityEvent OnHeal;
 
+    private string LastDecision = "";
+    // 
+
+
     // These are C# classes because Enemy is created at runtime, and cannot be assigned in the inspector.
     // UnityEvents can be assigned in this way I bet
     public event Action OnDeath;
@@ -69,9 +73,13 @@ public class Enemy : MonoBehaviour
 
         if (percentage == 1)
         {
+            int Decision = (int)(-data.GetAttackPercentage() * PsychicMultiplier);
+            LastDecision = GetName() + " attacked! " + Decision + "%";
+
             // If at full health, always attack.
-            returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+            returnVals[0] = Decision;
             OnAttack?.Invoke();
+            
         }
         else if (percentage >= 0.5f)
         {
@@ -79,20 +87,29 @@ public class Enemy : MonoBehaviour
             
             if (chance <= 0.5f)
             {
+                int Decision = (int)(-data.GetAttackPercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " attacked! " + Decision + "%";
+
                 // Attack
-                returnVals[0] = (int) (-data.GetAttackPercentage() * PsychicMultiplier);
+                returnVals[0] = Decision;
                 OnAttack?.Invoke();
             }
             else if (chance > 0.5f && chance < 0.75f)
             {
+                int Decision = (int)(data.GetDefensePercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " shieled themselves for next turn! " + Decision + "%";
+
                 // shield
-                returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+                returnVals[1] = Decision;
                 OnDefend?.Invoke();
             }
             else
             {
+                int Decision = (int)(data.GetHealPercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " healed! " + Decision + "%";
+
                 // heal
-                returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+                returnVals[2] = Decision;
                 OnHeal?.Invoke();
             }
         }
@@ -101,25 +118,39 @@ public class Enemy : MonoBehaviour
             // 50 percent chance of shield, 25 percent of attack, 25 percent of heal
             if (chance <= 0.5f)
             {
-                // Attack
-                returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+                int Decision = (int)(data.GetDefensePercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " shieled themselves for next turn! " + Decision + "%";
+
+                // Shield
+                returnVals[1] = Decision;
                 OnAttack?.Invoke();
             }
             else if (chance > 0.5f && chance < 0.75f)
             {
-                // shield
-                returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+                int Decision = (int)(-data.GetAttackPercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " attacked! " + Decision + "%";
+
+                // Attack
+                returnVals[0] = Decision;
                 OnDefend?.Invoke();
             }
             else
             {
+                int Decision = (int)(data.GetHealPercentage() * PsychicMultiplier);
+                LastDecision = GetName() + " healed! " + Decision + "%";
+
                 // heal
-                returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+                returnVals[2] = Decision;
                 OnHeal?.Invoke();
             }
         }
 
         return returnVals;
+    }
+
+    public string GetLastDecision()
+    {
+        return LastDecision;
     }
 
     public int ChangeHealth(int WholeNumberAsPercent)
