@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff03b047f2120f6458c07aa8fcf1f90c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3096020436592454310}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff03b047f2120f6458c07aa8fcf1f90c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8243319269895015260}
   m_SourcePrefab: {fileID: 100100000, guid: ff03b047f2120f6458c07aa8fcf1f90c, type: 3}
 --- !u!1 &2106123440270507250 stripped
 GameObject:
@@ -103,3 +106,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8243319269895015260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106123440270507250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5c1928543fd024eb4bc04aadc8039f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveAnim

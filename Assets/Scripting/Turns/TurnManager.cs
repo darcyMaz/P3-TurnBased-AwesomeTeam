@@ -7,11 +7,10 @@ public class TurnManager : MonoBehaviour
 
     private TurnState turnState;
     [SerializeField] private UnityEvent OnStartUp;
-    [SerializeField] private UnityEvent OnPlayerTurnStart;
-    [SerializeField] private UnityEvent<bool> OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent OnEndStartUp;
+    [SerializeField] private UnityEvent OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
     [SerializeField] private UnityEvent OnPlayerDeath;
-    [SerializeField] private UnityEvent OnNextEnemy;
     [SerializeField] private UnityEvent OnLevelComplete;
 
     private void Awake()
@@ -26,7 +25,7 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(turnState);
+        //Debug.Log(turnState);
     }
 
     private void Start()
@@ -35,17 +34,17 @@ public class TurnManager : MonoBehaviour
         OnStartUp?.Invoke();
     }
 
-    public void StartPlayerTurn()
+    public void EndStartUp()
     {
-        Debug.Log("player's turn has started.");
+        Debug.Log("start up over");
+        OnEndStartUp?.Invoke();
         turnState = TurnState.PlayerTurn;
-        OnPlayerTurnStart?.Invoke();
     }
-    public void EndPlayerTurn(bool IsLastMovePsychic)
+    public void EndPlayerTurn()
     {
         Debug.Log("player's turn is over.");
         turnState = TurnState.EnemyTurn;
-        OnPlayerTurnEnd?.Invoke(IsLastMovePsychic);
+        OnPlayerTurnEnd?.Invoke();
     }
     public void EndEnemyTurn()
     {
@@ -59,12 +58,6 @@ public class TurnManager : MonoBehaviour
         Debug.Log("In turn manager: player dead");
         turnState = TurnState.PlayerDeath;
         OnPlayerDeath?.Invoke();
-    }
-    public void NextEnemy()
-    {
-        Debug.Log("In turn manager: enter next enemy");
-        turnState = TurnState.NextEnemyTransition;
-        OnNextEnemy?.Invoke();
     }
     public void LevelComplete()
     {

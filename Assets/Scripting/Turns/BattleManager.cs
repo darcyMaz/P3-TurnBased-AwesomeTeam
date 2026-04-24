@@ -9,16 +9,15 @@ public class BattleManager : MonoBehaviour
     // on enemy turn end, battle manager takes effect info and gives it to player
 
     private int PlayerDefenseToApply = 0;
-
     private int EnemyDefenseToApply = 0;
 
     // Events send the exact amount of health to reduce or heal.
-    [SerializeField] private UnityEvent <int> OnAttackEnemy;
+    [SerializeField] private UnityEvent <int, bool> OnAttackEnemy;
     [SerializeField] private UnityEvent <int> OnAttackPlayer;
     [SerializeField] private UnityEvent <int> OnHealEnemy;
     [SerializeField] private UnityEvent <int> OnHealPlayer;
 
-    [SerializeField] private UnityEvent <bool> OnPlayerTurnEnd;
+    [SerializeField] private UnityEvent OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
 
     private bool DidEnemyDie = false;
@@ -40,13 +39,13 @@ public class BattleManager : MonoBehaviour
 
         if (EnemyDefenseToApply > 0) Debug.Log("The Player's Attack was reduced by a previous Defense move by the Enemy.");
         damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - EnemyDefenseToApply;
-
-        if (damage > 0) OnAttackEnemy?.Invoke(damage);
-        if (health > 0) OnHealPlayer?.Invoke(health);
-
         EnemyDefenseToApply = 0;
 
-        OnPlayerTurnEnd?.Invoke(IsPsychic);
+        if (health > 0) OnHealPlayer?.Invoke(health);
+ 
+        // If we are not doing damage to the enemy, then there will be no check for enemy death in the Enemy Manager. So, invoke the next turn here.
+        if (damage < 0) OnAttackEnemy?.Invoke(damage, IsPsychic);
+        else OnPlayerTurnEnd?.Invoke();
     }
 
 
@@ -56,13 +55,15 @@ public class BattleManager : MonoBehaviour
 
         if (PlayerDefenseToApply > 0) Debug.Log("The Enemy's Attack was reduced by a previous Defense move by the Player."); // debug statement
         damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - PlayerDefenseToApply;
-
-        if (damage > 0) OnAttackPlayer?.Invoke(damage);
-        if (health > 0) OnHealEnemy?.Invoke(health);
-
         PlayerDefenseToApply = 0;
 
-        OnEnemyTurnEnd?.Invoke();
+        // Make an event that says, defense applied
+
+        if (health > 0) OnHealEnemy?.Invoke(health);
+
+        if (damage < 0) OnAttackPlayer?.Invoke(damage);
+        else OnEnemyTurnEnd?.Invoke();
+
     }
 
 }

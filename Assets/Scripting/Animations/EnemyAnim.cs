@@ -62,6 +62,6 @@ public class EnemyAnim : MonoBehaviour
 
     private void Start()
     {
-        AnimateShield();
+        //AnimateShield();
     }
 }

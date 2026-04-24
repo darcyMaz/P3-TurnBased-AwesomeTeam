@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
             if (chance <= 0.5f)
             {
                 // Attack
-                returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+                returnVals[0] = (int) (-data.GetAttackPercentage() * PsychicMultiplier);
             }
             else if (chance > 0.5f && chance < 0.75f)
             {
@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour
     {
         if (HasAnim)
         {
-            animator.SetBool("IsDying", true);
+            animator.SetBool("isDying", true);
             // This animation will have the destroy game object called in an event
         }
         else

@@ -23,8 +23,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int MaxHealth;
     private int Health;
 
-    [SerializeField] private UnityEvent OnTurnEnd;
+    // [SerializeField] private UnityEvent OnTurnEnd;
     [SerializeField] private UnityEvent OnDeath;
+    [SerializeField] private UnityEvent OnPlayerSurvivedAttack;
 
     private void Awake()
     {
@@ -58,17 +59,17 @@ public class PlayerManager : MonoBehaviour
 
     private void Attack(bool IsPsy)
     {
-        OnMove?.Invoke( GetRange(AttackRange.x, AttackRange.y), 0, 0, IsPsy );
+        OnMove?.Invoke( -GetRange(AttackRange.x, AttackRange.y), 0, 0, IsPsy );
 
         if (HasAnim) animator.SetTrigger("IsAttacking");
-        else EndPlayerTurn();
+        //else EndPlayerTurn();
     }
     private void Shield(bool IsPsy)
     {
         OnMove?.Invoke( 0, GetRange(ShieldRange.x, ShieldRange.y), 0, IsPsy );
 
         if (HasAnim) animator.SetTrigger("IsShielding");
-        else EndPlayerTurn();
+        //else EndPlayerTurn();
     }
     private void Heal(bool IsPsy)
     {
@@ -76,7 +77,7 @@ public class PlayerManager : MonoBehaviour
 
         // Idea here is to have an event in the animations that Ends the turn
         if (HasAnim) animator.SetTrigger("IsHealing");
-        else EndPlayerTurn();
+        //else EndPlayerTurn();
     }
 
     public void ChangeHealth(int WholeNumberAsPercent)
@@ -90,13 +91,24 @@ public class PlayerManager : MonoBehaviour
             // player dies
             Death();
         }
+        else
+        {
+            // communicate that it's the enemy's turn now... wait
+            // i'll have to know which turn we're in because change health is for both turns
+
+            // if player is alive and if WholeNumberAsPercent < 0: then we are being attacked and are still alive
+            // it is the enemy's turn, they attacked us, and we are still alive
+            // next, it should be the player's turn
+
+            if (DeltaHealth < 0) OnPlayerSurvivedAttack?.Invoke();
+        }
 
         OnHealthChange?.Invoke(Health);
     }
 
     private void EndPlayerTurn()
     {
-        OnTurnEnd?.Invoke();
+        // OnTurnEnd?.Invoke();
     }
 
     private void UsePsyAttack()

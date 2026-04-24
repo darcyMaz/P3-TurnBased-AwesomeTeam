@@ -9,6 +9,5 @@ public enum TurnState
     EnemyMove, // enemy move takes effect
     PlayerDeath, // if player dies
     EnemyDeath, // if enemy dies
-    NextEnemyTransition, // enemy dies and a new one moves into play
     LevelCompleted // all enemies dead
 }
