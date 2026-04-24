@@ -117,6 +117,8 @@ public class Enemy : MonoBehaviour
 
         Health = (Health + DeltaHealth > MaxHealth) ? MaxHealth : (Health + DeltaHealth < 0) ? 0 : Health + DeltaHealth;
 
+        Debug.Log("Received Player Attack " + Health + " " + DeltaHealth + ": Enemy.ChangeHealth");
+
         if (Health <= 0)
         {
             Death();

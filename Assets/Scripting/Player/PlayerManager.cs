@@ -42,7 +42,10 @@ public class PlayerManager : MonoBehaviour
         else HasAnim = true;
     }
 
-    
+    private void Start()
+    {
+        OnHealthChange?.Invoke(Health);
+    }
 
     public void Move(string MoveName, bool IsPsyAttacking)
     {
@@ -59,9 +62,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Attack(bool IsPsy)
     {
-        OnMove?.Invoke( -GetRange(AttackRange.x, AttackRange.y), 0, 0, IsPsy );
+        int temp = -GetRange(AttackRange.x, AttackRange.y);
+        Debug.Log("Player Attack " + temp + " :PM.Attack()");
+
+        OnMove?.Invoke( temp, 0, 0, IsPsy );
 
         if (HasAnim) animator.SetTrigger("IsAttacking");
+
+        
         //else EndPlayerTurn();
     }
     private void Shield(bool IsPsy)
@@ -73,8 +81,12 @@ public class PlayerManager : MonoBehaviour
     }
     private void Heal(bool IsPsy)
     {
-        OnMove?.Invoke( 0, 0, GetRange(HealRange.x, HealRange.y), IsPsy );
+        int temp = GetRange(HealRange.x, HealRange.y);
+        Debug.Log("Player Heals " + temp + ": PM.Heal()");
 
+        OnMove?.Invoke( 0, 0, temp, IsPsy );
+
+        
         // Idea here is to have an event in the animations that Ends the turn
         if (HasAnim) animator.SetTrigger("IsHealing");
         //else EndPlayerTurn();

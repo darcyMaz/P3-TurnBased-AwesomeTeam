@@ -51,12 +51,17 @@ public class MovePanel : MonoBehaviour
 
     public void EndTurn()
     {
+        Debug.Log("Move panel closes now: MP.EndTurn()");
+        
+
         if (MoveSelected == "")
         {
             OnFailedToMove?.Invoke();
             Debug.Log("No move selected.");
             return;
         }
+
+        gameObject.SetActive(false);
         // Debug.Log("Move: " + MoveSelected + " Psychic?: " + IsPsychicSelected);
 
 
@@ -64,11 +69,13 @@ public class MovePanel : MonoBehaviour
         MoveSelected = "";
         IsPsychicSelected = false;
 
-        gameObject.SetActive(false);
+        
+        
     }
 
     public void StartTurn()
     {
+        Debug.Log("Move panel should open ig: MP.StartTurn()");
         gameObject.SetActive(true);
     }
     

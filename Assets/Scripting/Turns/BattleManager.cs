@@ -35,17 +35,28 @@ public class BattleManager : MonoBehaviour
     // Functions receive PERCENTAGE of health to reduce, defend, or heal.
     public void ReceivePlayerMove(int damage, int defense, int health, bool IsPsychic)
     {
+        Debug.Log("Player Move Received " + damage + " : BM.ReceivePlayerMove()");
+
         PlayerDefenseToApply = defense;
 
         if (EnemyDefenseToApply > 0) Debug.Log("The Player's Attack was reduced by a previous Defense move by the Enemy.");
-        damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - EnemyDefenseToApply;
+        damage = (damage + PlayerDefenseToApply > 0) ? 0 : damage + EnemyDefenseToApply;
         EnemyDefenseToApply = 0;
 
         if (health > 0) OnHealPlayer?.Invoke(health);
- 
+
+
+
         // If we are not doing damage to the enemy, then there will be no check for enemy death in the Enemy Manager. So, invoke the next turn here.
-        if (damage < 0) OnAttackEnemy?.Invoke(damage, IsPsychic);
-        else OnPlayerTurnEnd?.Invoke();
+        if (damage < 0)
+        {
+            Debug.Log("OnAttackEnemy: BM.ReceivePlayerMove()");
+            OnAttackEnemy?.Invoke(damage, IsPsychic);
+        }
+        else
+        {
+            OnPlayerTurnEnd?.Invoke();
+        }
     }
 
 
@@ -54,7 +65,7 @@ public class BattleManager : MonoBehaviour
         EnemyDefenseToApply = defense;
 
         if (PlayerDefenseToApply > 0) Debug.Log("The Enemy's Attack was reduced by a previous Defense move by the Player."); // debug statement
-        damage = (damage - PlayerDefenseToApply < 0) ? 0 : damage - PlayerDefenseToApply;
+        damage = (damage + PlayerDefenseToApply > 0) ? 0 : damage + PlayerDefenseToApply;
         PlayerDefenseToApply = 0;
 
         // Make an event that says, defense applied

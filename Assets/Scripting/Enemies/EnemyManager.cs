@@ -24,6 +24,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private UnityEvent <int, int, int> OnEnemyMove;
     [SerializeField] private UnityEvent <int> OnHealthChange;
+    [SerializeField] private UnityEvent<string> OnNameChange;
     [SerializeField] private UnityEvent OnEnemySurvivedAttack;
 
     private bool IsNextMovePsychicEffected = false;
@@ -32,12 +33,16 @@ public class EnemyManager : MonoBehaviour
     {
         int[] enemyMoveVals = CurrentEnemyClone.EnemyTurnDecision(IsNextMovePsychicEffected);
 
+        Debug.Log("EnemyTurn! "+ enemyMoveVals[0] +" "+ enemyMoveVals[1] +" "+ enemyMoveVals[2] + " : EM.EnemyTurn()");
+
         OnEnemyMove?.Invoke(enemyMoveVals[0], enemyMoveVals[1], enemyMoveVals[2]);
     }
 
     // what about when we change health from a heal move? does that mean it'll always say false. ugh
     public void ChangeCurrentEnemyHealth(int WholeNumPercentage, bool IsPsychic)
     {
+        Debug.Log("Change Enemy Health " + WholeNumPercentage + " isPsychic " + IsPsychic + ": EM.ChangeCurrentEnemyHealth()");
+
         IsNextMovePsychicEffected = IsPsychic;
         int NewHealth = CurrentEnemyClone.ChangeHealth(WholeNumPercentage);
         OnHealthChange?.Invoke(NewHealth);
@@ -47,6 +52,7 @@ public class EnemyManager : MonoBehaviour
 
         if (WholeNumPercentage < 0 && NewHealth > 0)
         {
+            Debug.Log("The Enemy survived an attack from the player " + WholeNumPercentage + " " + NewHealth+ " : EM.ChangeCurrentEnemyHealth()");
             OnEnemySurvivedAttack?.Invoke();
         }
 
