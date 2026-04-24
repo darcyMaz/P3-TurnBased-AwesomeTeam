@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     private void Attack(bool IsPsy)
     {
         int temp = -GetRange(AttackRange.x, AttackRange.y);
-        Debug.Log("Player Attack " + temp + " :PM.Attack()");
+        //Debug.Log("Player Attack " + temp + " :PM.Attack()");
 
         OnMove?.Invoke( temp, 0, 0, IsPsy );
 
@@ -82,7 +82,7 @@ public class PlayerManager : MonoBehaviour
     private void Heal(bool IsPsy)
     {
         int temp = GetRange(HealRange.x, HealRange.y);
-        Debug.Log("Player Heals " + temp + ": PM.Heal()");
+        //Debug.Log("Player Heals " + temp + ": PM.Heal()");
 
         OnMove?.Invoke( 0, 0, temp, IsPsy );
 
@@ -101,12 +101,12 @@ public class PlayerManager : MonoBehaviour
 
         Health = (Health + DeltaHealth > MaxHealth) ? MaxHealth: (Health + DeltaHealth < 0) ? 0: Health + DeltaHealth;
 
-        Debug.Log("Health " + Health + "DeltaHealth " +DeltaHealth+ ": PM.ChangeHealth()");
+        //Debug.Log("Health " + Health + "DeltaHealth " +DeltaHealth+ ": PM.ChangeHealth()");
 
 
         if (Health <= 0)
         {
-            Debug.Log("Health <= 0: PM.ChangeHealth()");
+            //Debug.Log("Health <= 0: PM.ChangeHealth()");
 
             // player dies
             Death();
@@ -143,7 +143,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Death()
     {
-        Debug.Log("PM.Death()");
+        //Debug.Log("PM.Death()");
         if (HasAnim)
         {
             // Animation will call DestroyPlayer()
@@ -157,7 +157,7 @@ public class PlayerManager : MonoBehaviour
 
     public void DestroyPlayer()
     {
-        Debug.Log("PM.DestroyPlayer()");
+        //Debug.Log("PM.DestroyPlayer()");
         OnDeath?.Invoke();
         Destroy(gameObject);
     }

@@ -12,6 +12,11 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
     [SerializeField] private UnityEvent OnPlayerDeath;
     [SerializeField] private UnityEvent OnLevelComplete;
+    [SerializeField] private UnityEvent <TurnState> OnStateChange;
+
+    [SerializeField] private float EnemyTurnTime = 2f;
+    private float EnemyTurnTimer = 0f;
+    private bool EnemyTurnTimerStarted = false;
 
     private void Awake()
     {
@@ -25,13 +30,15 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(turnState);
+        EnemyTurnTimer = (EnemyTurnTimer - Time.deltaTime < 0) ? 0 : EnemyTurnTimer - Time.deltaTime;
+        if (EnemyTurnTimer <= 0 && EnemyTurnTimerStarted) EndEnemyTurnAfterTimer();
     }
 
     private void Start()
     {
         turnState = TurnState.StartUp;
         OnStartUp?.Invoke();
+        OnStateChange?.Invoke(turnState);
     }
 
     public void EndStartUp()
@@ -39,18 +46,29 @@ public class TurnManager : MonoBehaviour
         Debug.Log("start up over");
         OnEndStartUp?.Invoke();
         turnState = TurnState.PlayerTurn;
+        OnStateChange?.Invoke(turnState);
     }
     public void EndPlayerTurn()
     {
         Debug.Log("player's turn is over.");
         turnState = TurnState.EnemyTurn;
         OnPlayerTurnEnd?.Invoke();
+        OnStateChange?.Invoke(turnState);
     }
     public void EndEnemyTurn()
     {
-        Debug.Log("enemy turn is over");
+        Debug.Log("enemy turn is ending");
+        EnemyTurnTimer = EnemyTurnTime;
+        EnemyTurnTimerStarted = true;
+
+    }
+    // I could have tied this into animation events... food for thought.
+    private void EndEnemyTurnAfterTimer()
+    {
+        EnemyTurnTimerStarted = false;
         turnState = TurnState.PlayerTurn;
         OnEnemyTurnEnd?.Invoke();
+        OnStateChange?.Invoke(turnState);
     }
 
     public void PlayerDeath()
@@ -58,16 +76,13 @@ public class TurnManager : MonoBehaviour
         Debug.Log("In turn manager: player dead");
         turnState = TurnState.PlayerDeath;
         OnPlayerDeath?.Invoke();
+        OnStateChange?.Invoke(turnState);
     }
     public void LevelComplete()
     {
         Debug.Log("Level complete");
         turnState = TurnState.LevelCompleted;
         OnLevelComplete?.Invoke();
-    }
-
-    public TurnState GetTurnState()
-    {
-        return turnState;
+        OnStateChange?.Invoke(turnState);
     }
 }

@@ -34,7 +34,7 @@ public class BattleManager : MonoBehaviour
     // Functions receive PERCENTAGE of health to reduce, defend, or heal.
     public void ReceivePlayerMove(int damage, int defense, int health, bool IsPsychic)
     {
-        Debug.Log("Player Move Received " + damage + " : BM.ReceivePlayerMove()");
+        //Debug.Log("Player Move Received " + damage + " : BM.ReceivePlayerMove()");
 
         PlayerDefenseToApply = defense;
 
@@ -47,7 +47,7 @@ public class BattleManager : MonoBehaviour
         // If we are not doing damage to the enemy, then there will be no check for enemy death in the Enemy Manager. So, invoke the next turn here.
         if (damage < 0)
         {
-            Debug.Log("OnAttackEnemy: BM.ReceivePlayerMove()");
+            //Debug.Log("OnAttackEnemy: BM.ReceivePlayerMove()");
             OnAttackEnemy?.Invoke(damage, IsPsychic);
         }
         else
@@ -59,7 +59,7 @@ public class BattleManager : MonoBehaviour
 
     public void ReceiveEnemyMove(int damage, int defense, int health)
     {
-        Debug.Log("Enemy Move Received in BM " + damage);
+        //Debug.Log("Enemy Move Received in BM " + damage);
 
         EnemyDefenseToApply = defense;
 
