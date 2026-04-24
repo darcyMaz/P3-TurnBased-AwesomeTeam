@@ -27,6 +27,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private UnityEvent OnDeath;
     [SerializeField] private UnityEvent OnPlayerSurvivedAttack;
 
+    [SerializeField] private UnityEvent OnAttack;
+    [SerializeField] private UnityEvent OnDefend;
+    [SerializeField] private UnityEvent OnHeal;
+
+
     private void Awake()
     {
         CurrentPsychicAttacks = TotalPsychicAttacks;
@@ -67,17 +72,13 @@ public class PlayerManager : MonoBehaviour
 
         OnMove?.Invoke( temp, 0, 0, IsPsy );
 
-        if (HasAnim) animator.SetTrigger("IsAttacking");
-
-        
-        //else EndPlayerTurn();
+        OnAttack?.Invoke();
     }
     private void Shield(bool IsPsy)
     {
         OnMove?.Invoke( 0, GetRange(ShieldRange.x, ShieldRange.y), 0, IsPsy );
 
-        if (HasAnim) animator.SetTrigger("IsShielding");
-        //else EndPlayerTurn();
+        OnDefend?.Invoke();
     }
     private void Heal(bool IsPsy)
     {
@@ -86,10 +87,7 @@ public class PlayerManager : MonoBehaviour
 
         OnMove?.Invoke( 0, 0, temp, IsPsy );
 
-        
-        // Idea here is to have an event in the animations that Ends the turn
-        if (HasAnim) animator.SetTrigger("IsHealing");
-        //else EndPlayerTurn();
+        OnHeal?.Invoke();
     }
 
     public void ChangeHealth(int WholeNumberAsPercent)
@@ -124,11 +122,6 @@ public class PlayerManager : MonoBehaviour
         }
 
         OnHealthChange?.Invoke(Health);
-    }
-
-    private void EndPlayerTurn()
-    {
-        // OnTurnEnd?.Invoke();
     }
 
     private void UsePsyAttack()

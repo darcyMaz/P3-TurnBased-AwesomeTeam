@@ -14,9 +14,13 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private UnityEvent OnLevelComplete;
     [SerializeField] private UnityEvent <TurnState> OnStateChange;
 
-    [SerializeField] private float EnemyTurnTime = 2f;
+    [SerializeField] private float EnemyTurnTime = 1.2f;
     private float EnemyTurnTimer = 0f;
     private bool EnemyTurnTimerStarted = false;
+
+    [SerializeField] private float PlayerTurnTime = 1.2f;
+    private float PlayerTurnTimer = 0f;
+    private bool PlayerTurnTimerStarted = false;
 
     private void Awake()
     {
@@ -32,6 +36,9 @@ public class TurnManager : MonoBehaviour
     {
         EnemyTurnTimer = (EnemyTurnTimer - Time.deltaTime < 0) ? 0 : EnemyTurnTimer - Time.deltaTime;
         if (EnemyTurnTimer <= 0 && EnemyTurnTimerStarted) EndEnemyTurnAfterTimer();
+
+        PlayerTurnTimer = (PlayerTurnTimer - Time.deltaTime < 0) ? 0 : PlayerTurnTimer - Time.deltaTime;
+        if (PlayerTurnTimer <= 0 && PlayerTurnTimerStarted) EndPlayerTurnAfterTimer();
     }
 
     private void Start()
@@ -43,21 +50,28 @@ public class TurnManager : MonoBehaviour
 
     public void EndStartUp()
     {
-        Debug.Log("start up over");
+        //Debug.Log("start up over");
         OnEndStartUp?.Invoke();
         turnState = TurnState.PlayerTurn;
         OnStateChange?.Invoke(turnState);
     }
     public void EndPlayerTurn()
     {
-        Debug.Log("player's turn is over.");
+        //Debug.Log("player's turn is over.");
+        PlayerTurnTimer = PlayerTurnTime;
+        PlayerTurnTimerStarted = true;
+    }
+    private void EndPlayerTurnAfterTimer()
+    {
+        PlayerTurnTimerStarted = false;
         turnState = TurnState.EnemyTurn;
         OnPlayerTurnEnd?.Invoke();
         OnStateChange?.Invoke(turnState);
     }
+
     public void EndEnemyTurn()
     {
-        Debug.Log("enemy turn is ending");
+        //Debug.Log("enemy turn is ending");
         EnemyTurnTimer = EnemyTurnTime;
         EnemyTurnTimerStarted = true;
 
@@ -73,14 +87,14 @@ public class TurnManager : MonoBehaviour
 
     public void PlayerDeath()
     {
-        Debug.Log("In turn manager: player dead");
+        //Debug.Log("In turn manager: player dead");
         turnState = TurnState.PlayerDeath;
         OnPlayerDeath?.Invoke();
         OnStateChange?.Invoke(turnState);
     }
     public void LevelComplete()
     {
-        Debug.Log("Level complete");
+        //Debug.Log("Level complete");
         turnState = TurnState.LevelCompleted;
         OnLevelComplete?.Invoke();
         OnStateChange?.Invoke(turnState);

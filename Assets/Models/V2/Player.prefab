@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8516523362637388091}
   - component: {fileID: 6816069436305796396}
   - component: {fileID: 7490454873980823589}
-  - component: {fileID: 3826082895370454210}
+  - component: {fileID: 8038633651860736024}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -236,6 +236,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8038633651860736024}
+        m_TargetAssemblyTypeName: PlayerAnim, Assembly-CSharp
+        m_MethodName: AnimateAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDefend:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8038633651860736024}
+        m_TargetAssemblyTypeName: PlayerAnim, Assembly-CSharp
+        m_MethodName: AnimateShield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8038633651860736024}
+        m_TargetAssemblyTypeName: PlayerAnim, Assembly-CSharp
+        m_MethodName: AnimateHeal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &7490454873980823589
 Animator:
   serializedVersion: 7
@@ -258,7 +303,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3826082895370454210
+--- !u!114 &8038633651860736024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,9 +312,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5058694328089430819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5131085958d5a74899b21c29b1c8cae, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df67d5f776a0414cadb5070810ae8e0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnim
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnim
   heal: {fileID: 9214882320014577568}
   shield: {fileID: 8433958328376268005}
   attack: {fileID: 6122647472656028464}
