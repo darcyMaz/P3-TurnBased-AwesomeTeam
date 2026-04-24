@@ -140,6 +140,13 @@ public class PlayerManager : MonoBehaviour
         OnPsychicAttackUse?.Invoke(--CurrentPsychicAttacks);
     }
 
+    public void VictoryAnim()
+    {
+        if (HasAnim)
+        {
+            animator.SetTrigger("VictoryTrigger");
+        }
+    }
 
     private void Death()
     {
@@ -147,7 +154,7 @@ public class PlayerManager : MonoBehaviour
         if (HasAnim)
         {
             // Animation will call DestroyPlayer()
-            animator.SetBool("IsDying", true);
+            animator.SetTrigger("DeathTrigger");
         }
         else
         {
