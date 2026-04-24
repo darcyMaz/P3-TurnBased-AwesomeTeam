@@ -44,8 +44,6 @@ public class BattleManager : MonoBehaviour
 
         if (health > 0) OnHealPlayer?.Invoke(health);
 
-
-
         // If we are not doing damage to the enemy, then there will be no check for enemy death in the Enemy Manager. So, invoke the next turn here.
         if (damage < 0)
         {
@@ -61,6 +59,8 @@ public class BattleManager : MonoBehaviour
 
     public void ReceiveEnemyMove(int damage, int defense, int health)
     {
+        Debug.Log("Enemy Move Received in BM " + damage);
+
         EnemyDefenseToApply = defense;
 
         if (PlayerDefenseToApply > 0) Debug.Log("The Enemy's Attack was reduced by a previous Defense move by the Player."); // debug statement
@@ -73,7 +73,6 @@ public class BattleManager : MonoBehaviour
 
         if (damage < 0) OnAttackPlayer?.Invoke(damage);
         else OnEnemyTurnEnd?.Invoke();
-
     }
 
 }

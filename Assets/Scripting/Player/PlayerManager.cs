@@ -96,10 +96,18 @@ public class PlayerManager : MonoBehaviour
     {
         int DeltaHealth = (int) GetAsPercentage(WholeNumberAsPercent);
 
+        // If the player is being attacked and the percentage rounds down to zero, round it up to 1.
+        if (WholeNumberAsPercent < 0 && DeltaHealth == 0) DeltaHealth = -1;
+
         Health = (Health + DeltaHealth > MaxHealth) ? MaxHealth: (Health + DeltaHealth < 0) ? 0: Health + DeltaHealth;
+
+        Debug.Log("Health " + Health + "DeltaHealth " +DeltaHealth+ ": PM.ChangeHealth()");
+
 
         if (Health <= 0)
         {
+            Debug.Log("Health <= 0: PM.ChangeHealth()");
+
             // player dies
             Death();
         }
@@ -135,6 +143,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Death()
     {
+        Debug.Log("PM.Death()");
         if (HasAnim)
         {
             // Animation will call DestroyPlayer()
@@ -148,6 +157,7 @@ public class PlayerManager : MonoBehaviour
 
     public void DestroyPlayer()
     {
+        Debug.Log("PM.DestroyPlayer()");
         OnDeath?.Invoke();
         Destroy(gameObject);
     }
