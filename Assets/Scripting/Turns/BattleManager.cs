@@ -20,7 +20,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private UnityEvent OnPlayerTurnEnd;
     [SerializeField] private UnityEvent OnEnemyTurnEnd;
 
-    private bool DidEnemyDie = false;
 
     private void Awake()
     {

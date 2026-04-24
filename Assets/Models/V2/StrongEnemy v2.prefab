@@ -169,6 +169,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   data: {fileID: 11400000, guid: 3f3765aa2b06c914599faeb1cc98475e, type: 2}
   DebugStartPos: {x: 0, y: 0, z: 0}
+  OnAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9081253348941061451}
+        m_TargetAssemblyTypeName: EnemyAnim, Assembly-CSharp
+        m_MethodName: AnimateAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDefend:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9081253348941061451}
+        m_TargetAssemblyTypeName: EnemyAnim, Assembly-CSharp
+        m_MethodName: AnimateShield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9081253348941061451}
+        m_TargetAssemblyTypeName: EnemyAnim, Assembly-CSharp
+        m_MethodName: AnimateHeal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2151388846370679970
 PrefabInstance:
   m_ObjectHideFlags: 0

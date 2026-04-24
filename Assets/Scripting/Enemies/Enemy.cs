@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class Enemy : MonoBehaviour
     private int Health;
 
     [SerializeField] private Vector3 DebugStartPos;
-    
+
+    [SerializeField] private UnityEvent OnAttack;
+    [SerializeField] private UnityEvent OnDefend;
+    [SerializeField] private UnityEvent OnHeal;
 
     // These are C# classes because Enemy is created at runtime, and cannot be assigned in the inspector.
     // UnityEvents can be assigned in this way I bet
@@ -59,7 +63,7 @@ public class Enemy : MonoBehaviour
         int[] returnVals = new int[3];
 
         float percentage = (float) Health / MaxHealth;
-        float chance = UnityEngine.Random.Range(0, 1);
+        float chance = UnityEngine.Random.Range(0f, 1f);
 
         float PsychicMultiplier = (IsPsychicAffected) ? data.GetPsychicEffect() : 1;
 
@@ -67,6 +71,7 @@ public class Enemy : MonoBehaviour
         {
             // If at full health, always attack.
             returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+            OnAttack?.Invoke();
         }
         else if (percentage >= 0.5f)
         {
@@ -76,35 +81,41 @@ public class Enemy : MonoBehaviour
             {
                 // Attack
                 returnVals[0] = (int) (-data.GetAttackPercentage() * PsychicMultiplier);
+                OnAttack?.Invoke();
             }
             else if (chance > 0.5f && chance < 0.75f)
             {
                 // shield
                 returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+                OnDefend?.Invoke();
             }
             else
             {
                 // heal
                 returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+                OnHeal?.Invoke();
             }
         }
-        else if (percentage <= 0.5f)
+        else if (percentage < 0.5f)
         {
             // 50 percent chance of shield, 25 percent of attack, 25 percent of heal
             if (chance <= 0.5f)
             {
                 // Attack
                 returnVals[1] = (int) (data.GetDefensePercentage() * PsychicMultiplier);
+                OnAttack?.Invoke();
             }
             else if (chance > 0.5f && chance < 0.75f)
             {
                 // shield
                 returnVals[0] = (int) (data.GetAttackPercentage() * PsychicMultiplier);
+                OnDefend?.Invoke();
             }
             else
             {
                 // heal
                 returnVals[2] = (int) (data.GetHealPercentage() * PsychicMultiplier);
+                OnHeal?.Invoke();
             }
         }
 
@@ -124,6 +135,15 @@ public class Enemy : MonoBehaviour
             Death();
         }
 
+        return Health;
+    }
+
+    public string GetName()
+    {
+        return data.GetEnemyName();
+    }
+    public int GetCurrentHealth()
+    {
         return Health;
     }
 

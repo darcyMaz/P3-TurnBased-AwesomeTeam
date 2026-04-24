@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private UnityEvent <int, int, int> OnEnemyMove;
     [SerializeField] private UnityEvent <int> OnHealthChange;
-    [SerializeField] private UnityEvent<string> OnNameChange;
+    [SerializeField] private UnityEvent <string> OnNameChange;
     [SerializeField] private UnityEvent OnEnemySurvivedAttack;
 
     private bool IsNextMovePsychicEffected = false;
@@ -90,6 +90,9 @@ public class EnemyManager : MonoBehaviour
         {
             CurrentEnemyClone.QueueIn();
             CurrentEnemyClone.OnDeath += EnemyDeath;
+
+            OnNameChange?.Invoke(CurrentEnemyClone.GetName());
+            OnHealthChange?.Invoke(CurrentEnemyClone.GetCurrentHealth());
         }
     }
 

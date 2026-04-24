@@ -17,4 +17,4 @@ MonoBehaviour:
   AttackRange: {x: 9, y: 13}
   DefenseRange: {x: 2, y: 5}
   PsychicEffectRange: {x: 0.08, y: 0.28}
-  MaxHealth: 10
+  MaxHealth: 50
